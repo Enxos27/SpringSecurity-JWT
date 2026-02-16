@@ -2,13 +2,13 @@ package vincenzocalvaruso.SpringSecurity.JWT.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Dipendente;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Prenotazione;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Viaggio;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.exceptions.BadRequestException;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.exceptions.NotFoundException;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.payloads.PrenotazioneDTO;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.repository.PrenotazioneRepository;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Dipendente;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Prenotazione;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Viaggio;
+import vincenzocalvaruso.SpringSecurity.JWT.exceptions.BadRequestException;
+import vincenzocalvaruso.SpringSecurity.JWT.exceptions.NotFoundException;
+import vincenzocalvaruso.SpringSecurity.JWT.payloads.PrenotazioneDTO;
+import vincenzocalvaruso.SpringSecurity.JWT.repository.PrenotazioneRepository;
 
 import java.time.LocalDate;
 import java.util.List;

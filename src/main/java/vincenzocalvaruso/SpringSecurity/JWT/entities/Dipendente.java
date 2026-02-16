@@ -26,7 +26,9 @@ public class Dipendente {
 
     private String avatar; // URL di Cloudinary
 
-    public Dipendente(String username, String nome, String cognome, String email) {
+    private String password;
+
+    public Dipendente(String username, String nome, String cognome, String email, String password) {
         this.username = username;
         this.nome = nome;
         this.cognome = cognome;

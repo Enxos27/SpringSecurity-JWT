@@ -8,6 +8,9 @@ public record DipendenteDTO(
         @NotBlank(message = "Lo username è obbligatorio")
         @Size(min = 4, message = "Lo username deve avere almeno 4 caratteri")
         String username,
+        @NotBlank
+        @Size(min = 4, message = "La password deve contenere più caratteri!")
+        String password,
         @NotBlank(message = "Il nome è obbligatorio")
         String nome,
         @NotBlank(message = "Il cognome è obbligatorio")
@@ -15,5 +18,6 @@ public record DipendenteDTO(
         @Email(message = "L'email inserita non è valida")
         @NotBlank(message = "L'email è obbligatoria")
         String email
+
 ) {
 }

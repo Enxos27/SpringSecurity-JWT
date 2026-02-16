@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Prenotazione;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.exceptions.ValidationException;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.payloads.PrenotazioneDTO;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.service.PrenotazioneService;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Prenotazione;
+import vincenzocalvaruso.SpringSecurity.JWT.exceptions.ValidationException;
+import vincenzocalvaruso.SpringSecurity.JWT.payloads.PrenotazioneDTO;
+import vincenzocalvaruso.SpringSecurity.JWT.service.PrenotazioneService;
 
 import java.util.List;
 

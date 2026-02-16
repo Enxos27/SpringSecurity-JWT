@@ -2,12 +2,12 @@ package vincenzocalvaruso.SpringSecurity.JWT.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Viaggio;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.exceptions.BadRequestException;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.exceptions.NotFoundException;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.payloads.ViaggioDTO;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.repository.PrenotazioneRepository;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.repository.ViaggioRepository;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Viaggio;
+import vincenzocalvaruso.SpringSecurity.JWT.exceptions.BadRequestException;
+import vincenzocalvaruso.SpringSecurity.JWT.exceptions.NotFoundException;
+import vincenzocalvaruso.SpringSecurity.JWT.payloads.ViaggioDTO;
+import vincenzocalvaruso.SpringSecurity.JWT.repository.PrenotazioneRepository;
+import vincenzocalvaruso.SpringSecurity.JWT.repository.ViaggioRepository;
 
 import java.util.List;
 

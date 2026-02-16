@@ -1,9 +1,9 @@
 package vincenzocalvaruso.SpringSecurity.JWT.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Dipendente;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Prenotazione;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Viaggio;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Dipendente;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Prenotazione;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Viaggio;
 
 import java.time.LocalDate;
 

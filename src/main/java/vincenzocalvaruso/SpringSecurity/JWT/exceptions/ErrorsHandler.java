@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.payloads.ErrorDTO;
+import vincenzocalvaruso.SpringSecurity.JWT.payloads.ErrorDTO;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +16,12 @@ public class ErrorsHandler {
     // Tra le parentesi specifico il tipo di eccezione gestita da questo metodo
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 400
     public ErrorDTO handleBadRequest(BadRequestException ex) {
+        return new ErrorDTO(ex.getMessage(), LocalDateTime.now());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
+    public ErrorDTO handleUnauthorized(UnauthorizedException ex) {
         return new ErrorDTO(ex.getMessage(), LocalDateTime.now());
     }
 

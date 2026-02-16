@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.entities.Viaggio;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.exceptions.ValidationException;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.payloads.ViaggioDTO;
-import vincenzocalvaruso.Development_of_a_SpringWeb_Service.service.ViaggioService;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Viaggio;
+import vincenzocalvaruso.SpringSecurity.JWT.exceptions.ValidationException;
+import vincenzocalvaruso.SpringSecurity.JWT.payloads.ViaggioDTO;
+import vincenzocalvaruso.SpringSecurity.JWT.service.ViaggioService;
 
 import java.util.List;
 
