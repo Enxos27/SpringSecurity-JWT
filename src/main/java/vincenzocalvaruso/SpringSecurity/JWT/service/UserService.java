@@ -1,6 +1,7 @@
 package vincenzocalvaruso.SpringSecurity.JWT.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vincenzocalvaruso.SpringSecurity.JWT.entities.Dipendente;
 import vincenzocalvaruso.SpringSecurity.JWT.exceptions.UnauthorizedException;
@@ -13,13 +14,17 @@ public class UserService {
     private DipendenteService dipendenteService;
     @Autowired
     private JWTTools jwtTools;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public String checkCredenzialAndReturnToken(LoginDTO body) {
         //1- controllo che esiste un utente con quella email, se esiste controllo che la password sia uguale
         //Se credenziali non ok genero exception --> 401 UnAuthorized
         Dipendente found = dipendenteService.findByUsername(body.username());
-        if (found.getPassword().equalsIgnoreCase(body.password())) {
-            //TODO: LA PASSWORDO COSI è MOMENTANEA, MIGLIORERò CIò
+        // if (found.getPassword().equalsIgnoreCase(body.password())) {
+        // TODO: LA PASSWORDO COSI è MOMENTANEA, MIGLIORERò CIò
+        if (passwordEncoder.matches(body.password(), found.getPassword())) {
+
             //2- creo token
             String token = jwtTools.generaToken(found);
 

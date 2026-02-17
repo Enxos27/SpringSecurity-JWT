@@ -5,6 +5,7 @@ package vincenzocalvaruso.SpringSecurity.JWT.service;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vincenzocalvaruso.SpringSecurity.JWT.entities.Dipendente;
 import vincenzocalvaruso.SpringSecurity.JWT.exceptions.BadRequestException;
@@ -24,6 +25,8 @@ public class DipendenteService {
 //    private Cloudinary cloudinaryUploader;
     @Autowired
     private PrenotazioneRepository prenotazioneRepo;
+    @Autowired
+    private PasswordEncoder bcrypt;
 
 
     public List<Dipendente> findAll() {
@@ -38,7 +41,7 @@ public class DipendenteService {
         if (dipendenteRepo.existsByUsername(body.username())) {
             throw new BadRequestException("L'username " + body.username() + " è già in uso!");
         }
-        Dipendente newDipendente = new Dipendente(body.username(), body.nome(), body.cognome(), body.email(), body.password());
+        Dipendente newDipendente = new Dipendente(body.username(), body.nome(), body.cognome(), body.email(), bcrypt.encode(body.password()));
         return dipendenteRepo.save(newDipendente);
     }
 
@@ -59,10 +62,15 @@ public class DipendenteService {
                 throw new BadRequestException("L'username " + payload.username() + " è già in uso!");
             }
         }
+        if (found.getPassword().equals(payload.password())) {
+            throw new BadRequestException("Cambia password!");
+        }
+
         found.setUsername(payload.username());
         found.setNome(payload.nome());
         found.setCognome(payload.cognome());
         found.setEmail(payload.email());
+        found.setPassword(payload.password());
 
         return dipendenteRepo.save(found);
     }

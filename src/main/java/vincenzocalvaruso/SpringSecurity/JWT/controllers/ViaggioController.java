@@ -2,6 +2,7 @@ package vincenzocalvaruso.SpringSecurity.JWT.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class ViaggioController {
     private ViaggioService viaggioService;
 
     // 1. Creazione Viaggio
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Viaggio create(@RequestBody @Validated ViaggioDTO body, BindingResult validationResult) {
@@ -34,18 +36,21 @@ public class ViaggioController {
     }
 
     // 2. Recupero tutti i viaggi
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping
     public List<Viaggio> getAll() {
         return viaggioService.findAll();
     }
 
     // 3. Recupero un singolo viaggio
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/{id}")
     public Viaggio getById(@PathVariable long id) {
         return viaggioService.findById(id);
     }
 
     // 4. Modifico un viaggio specifico (PUT)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/{id}")
     public Viaggio update(@PathVariable long id, @RequestBody @Validated ViaggioDTO body, BindingResult validationResult) {
         if (validationResult.hasErrors()) {
@@ -59,12 +64,14 @@ public class ViaggioController {
     }
 
     // 5. Cambio stato (PATCH) - Es. Da "In programma" a "Completato"
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PatchMapping("/{id}/{stato}")
     public Viaggio toggleStato(@PathVariable long id, @PathVariable String stato) {
         return viaggioService.toggleStato(id, stato);
     }
 
     // 6. Cancello un viaggio
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable long id) {

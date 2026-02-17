@@ -2,6 +2,7 @@ package vincenzocalvaruso.SpringSecurity.JWT.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,18 +34,21 @@ public class PrenotazioneController {
     }
 
     // 2. Recupero tutte le prenotazioni
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public List<Prenotazione> getAll() {
         return prenotazioneService.findAll();
     }
 
     // 3. Recupero singola prenotazione
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/{id}")
     public Prenotazione getById(@PathVariable long id) {
         return prenotazioneService.findById(id);
     }
 
     // 4. Cancellazione
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable long id) {

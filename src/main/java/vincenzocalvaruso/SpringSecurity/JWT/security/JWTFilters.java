@@ -5,10 +5,15 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+import vincenzocalvaruso.SpringSecurity.JWT.entities.Dipendente;
 import vincenzocalvaruso.SpringSecurity.JWT.exceptions.UnauthorizedException;
+import vincenzocalvaruso.SpringSecurity.JWT.service.DipendenteService;
 
 import java.io.IOException;
 
@@ -16,6 +21,8 @@ import java.io.IOException;
 public class JWTFilters extends OncePerRequestFilter {
     @Autowired
     private JWTTools jwtTools;
+    @Autowired
+    private DipendenteService dipendenteService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,6 +43,29 @@ public class JWTFilters extends OncePerRequestFilter {
 
         // 3. Verifichiamo se il token è valido (controllare la firma e verificare data di scadenza)
         jwtTools.verificaToker(accessToken);
+
+        // *************************************************** AUTORIZZAZIONE **************************************************
+        // Ora posso verificare il ruolo dell'utente cosi da capire se è autorizzato o meno a fare una determinata azione
+        //Per farlo seguo i seguenti passaggi
+
+        // 1. Cerchiamo l'utente nel DB tramite id (l'id sta nel token!)
+        // 1.1 Leggiamo l'id dal token
+        long userId = jwtTools.extractIdFromToken(accessToken);
+
+        // 1.2 Find by Id
+        Dipendente authenticatedDip = this.dipendenteService.findById(userId);
+        // 2. Associamo l'utente al Security Context
+        //Step fondamentale, cosi facendo ovunqe ci troviamo (altri filtri, il controller, un endpoint...) si potrà risalire
+        // chi è l'utente che ha effettuato l'azione
+        // Questo è molto utile per ad esempio controllare i ruoli dell'utente prima di arrivare ad uno specifico endpoint.
+        // Oppure ci può servire
+        //  per effettuare determinati controlli all'interno degli endpoint stessi per verificare che chi stia
+        //  facendo una certa operazione di lettura/modifica/cancellazione sia l'effettivo proprietario della risorsa,
+        //  oppure per, in fase di creazione di una risorsa, associare l'effettivo proprietario a tale risorsa.
+        
+        Authentication authentication = new UsernamePasswordAuthenticationToken(authenticatedDip, null, authenticatedDip.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
 
         // 4. Se tutto è OK --> andiamo avanti, trasmettiamo la richiesta al prossimo (può essere o un altro elemento della catena oppure il controller)
         filterChain.doFilter(request, response);
